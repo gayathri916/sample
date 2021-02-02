@@ -1,0 +1,124 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+struct node
+{
+ int data;
+ struct node *next;
+};
+struct node *start=NULL;
+struct node *create(struct node *);
+struct node *display(struct node *);
+struct node *insert_beg(struct node *);
+struct node *insert_end(struct node *);
+int main()
+{
+ int ch;
+ do
+ {
+printf("\nCIRCULAR LINKED LIST OPERATIONS:");
+ printf("\n...........\n");
+ printf("\n1.Create a linked list:");
+ printf("\n2.Display alinked list:");
+ printf("\n3.Insert a value at the beginning of a linked list:");
+ printf("\n4.Insert a value at the end of the linked list:");
+ printf("\n5.Exit:");
+ printf("\nEnter your choice:\n");
+ scanf("%d",&ch);
+ switch(ch)
+ {
+ case 1:start=create(start);
+ break;
+ case 2:start=display(start);
+ break;
+ case 3:start=insert_beg(start);
+ break;
+ case 4:start=insert_end(start);
+ break;
+ case 5:exit(0);
+break;
+ default:printf("\nInvalid choice:\n");
+ break;
+ }
+ }while(ch<5);
+ getch();
+}
+struct node *create(struct node *start)
+{
+ struct node *new_node;
+ int num;
+ printf("\nEnter -1 to end:\n");
+ printf("\nEnter a value:\n");
+ scanf("%d",&num);
+ while(num!=-1)
+ {
+ new_node=(struct node *)malloc(sizeof(struct node *));
+ new_node->data=num;
+ if(start==NULL)
+ {
+start=new_node;
+ new_node->next=start;
+ }
+ else
+ {
+ struct node *ptr;
+ ptr=start;
+ while(ptr->next!=start)
+ {
+ ptr=ptr->next;
+ }
+ ptr->next=new_node;
+ new_node->next=start;
+ }
+ printf("\nEnter a value:\n");
+ scanf("%d",&num);
+ }
+ return start;
+}
+struct node *display(struct node *start)
+{
+ struct node *ptr;
+ ptr=start;
+ while(ptr->next!=start)
+ {
+ printf("%d\t",ptr->data);
+ ptr=ptr->next;
+ }
+ printf("%d",ptr->data);
+ return start;
+}
+struct node *insert_beg(struct node *start)
+{
+ struct node *new_node,*ptr;
+ int num;
+ printf("\nEnter a value:\n");
+ scanf("%d",&num);
+ new_node=(struct node *)malloc(sizeof(struct node *));
+ new_node->data=num;
+ new_node->next=start;
+ptr=start;
+ while(ptr->next!=start)
+ {
+ ptr=ptr->next;
+ }
+ ptr->next=new_node;
+ start=new_node;
+ return start;
+}
+struct node *insert_end(struct node *start)
+{
+ struct node *new_node,*ptr;
+ int num;
+ printf("\nEnter a value:\n");
+ scanf("%d",&num);
+ new_node=(struct node *)malloc(sizeof(struct node *));
+ new_node->data=num;
+ ptr=start;
+ while(ptr->next!=start)
+ {
+ptr=ptr->next;
+ }
+ ptr->next=new_node;
+ new_node->next=start;
+ return start;
+}
